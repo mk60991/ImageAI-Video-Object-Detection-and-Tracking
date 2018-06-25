@@ -1,0 +1,19 @@
+Let us make a breakdown of the object detection code that we used above.
+
+from imageai.Detection import VideoObjectDetection
+import os
+
+execution_path = os.getcwd()
+
+In the 3 lines above , we import the ImageAI video object detection class in the first line, import the os in the second line and obtained the path to folder where our python file runs.
+detector = VideoObjectDetection()
+detector.setModelTypeAsRetinaNet()
+detector.setModelPath( os.path.join(execution_path , "resnet50_coco_best_v2.0.1.h5"))
+detector.loadModel()
+In the 4 lines above, we created a new instance of the VideoObjectDetection class in the first line, set the model type to RetinaNet in the second line, set the model path to the RetinaNet model file we downloaded and copied to the python file folder in the third line and load the model in the fourth line.
+
+video_path = detector.detectObjectsFromVideo(input_file_path=os.path.join(execution_path, "traffic.mp4"),
+output_file_path=os.path.join(execution_path, "traffic_detected")
+, frames_per_second=20, log_progress=True)
+print(video_path)
+In the 2 lines above, we ran the detectObjectsFromVideo() function and parse in the path to our video,the path to the new video (without the extension, it saves a .avi video by default) which the function will save, the number of frames per second (fps) that you we desire the output video to have and option to log the progress of the detection in the console. Then the function returns a the path to the saved video which contains boxes and percentage probabilities rendered on objects detected in the video.
